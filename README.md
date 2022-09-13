@@ -1,4 +1,4 @@
-#Calculator Sanitas
+#Calculator 
 
 calculator with API REST interface
 
