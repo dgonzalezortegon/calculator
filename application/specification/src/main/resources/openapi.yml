@@ -1,0 +1,76 @@
+openapi: 3.0.2
+info:
+  description: API to manage Calculator
+  version: 1.0.1
+  title: Calculator API
+
+
+servers:
+- url: http://sanitas-api/v1
+tags:
+- name: calculator
+  description: Operations 
+
+   
+paths:
+  /calculator:
+    get:
+      tags:
+      - calculator
+      summary: Get result from Operation
+      operationId: calculate
+   
+      parameters:
+      - name: param1
+        in: query
+        description: 'parameter 1 from operation '
+        required: true
+        schema:
+          type: integer
+      - name: param2
+        in: query
+        description: 'parameter 2 from operation '
+        required: true
+        schema:
+          type: integer
+      - name: type
+        in: query
+        schema:
+          $ref: '#/definitions/OperationTypeRequestEnum'          
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Oper'
+        404:
+          description: User not found
+          content: {}
+ 
+components:
+  schemas:
+    Oper:
+      type: object
+      properties:
+        param1:
+          type: integer
+          description: param1
+          format: int32
+        param2:
+          type: integer
+          description: param2
+          format: int32
+        typeOperation: 
+          description: typeOperation
+          $ref: '#/definitions/OperationTypeRequestEnum'
+        result:
+          type: integer
+          description: result
+          format: int32
+    OperationTypeRequestEnum:
+      type: string
+      description: 'The operation type'
+      enum:
+        - "SUM"
+        - "RESTA"
